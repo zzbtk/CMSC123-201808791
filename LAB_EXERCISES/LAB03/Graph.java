@@ -1,11 +1,11 @@
 import java.util.*; 
   
-public class AdjListGraph 
+public class Graph 
 { 
     int Num; 
     LinkedList<Integer> graph[]; 
     
-    public AdjListGraph(int Num) 
+    public Graph(int Num) 
     { 
         this.Num = Num; 
         graph = new LinkedList[Num]; 
@@ -18,10 +18,11 @@ public class AdjListGraph
     
     public void addEdge(int from, int to) 
     { 
-        graph[from].add(to);
+        graph[from].add(to); 
+        graph[to].add(from); 
     } 
        
-    public void printGraph(AdjListGraph g) 
+    public void print(Graph g) 
     {        
         for(int i = 0; i < g.Num; i++) 
         { 
@@ -90,6 +91,30 @@ public class AdjListGraph
                 } 
             } 
         } 
-    }  
+    } 
+
+    public void shortPath(int s, int dest, int v)
+    {
+        int[] pred = new int[v];
+        int[] dist = new int[v];
+
+        LinkedList<Integer> path = new LinkedList<Integer>();
+        int crawl = dest;
+        path.add(crawl);
+        while (pred[crawl] != -1)
+        {
+            path.add(pred[crawl]);
+            crawl = pred[crawl];
+        }
+
+        System.out.print("Shortest path length is : ");
+        System.out.print(dist[dest]);
+        System.out.print("\nPath is::\n");
+        for (int i = path.size() - 1; i >= 0; i--)
+        {
+            System.out.print(path.get(i));
+            System.out.print(" ");
+        }
+    } 
 } 
      
